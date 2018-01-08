@@ -310,6 +310,7 @@ u8 *data_u8, u8 len_u8)
  *              0          | BMA2x2_12_RESOLUTION
  *              1          | BMA2x2_10_RESOLUTION
  *              2          | BMA2x2_14_RESOLUTION
+ *              3          | BMA2x2_8_RESOLUTION
  *
  *
  *	@return results of bus communication function
@@ -376,6 +377,12 @@ BMA2x2_RETURN_FUNCTION_TYPE bma2x2_read_accel_x(s16 *accel_x_s16)
 			*accel_x_s16 = *accel_x_s16 >>
 			BMA2x2_SHIFT_TWO_BITS;
 		break;
+		/* This case used for the resolution bit 8*/
+		case BMA2x2_8_RESOLUTION:
+			com_rslt = bma2x2_read_accel_eight_resolution_x
+			((s8 *)&data_u8[BMA2x2_SENSOR_DATA_ACCEL_MSB]);
+			*accel_x_s16 = (s16)((s8)data_u8[BMA2x2_SENSOR_DATA_ACCEL_MSB]);
+		break;
 		default:
 		break;
 		}
@@ -431,6 +438,7 @@ s8 *accel_x_s8)
  *              0          | BMA2x2_12_RESOLUTION
  *              1          | BMA2x2_10_RESOLUTION
  *              2          | BMA2x2_14_RESOLUTION
+ *              3          | BMA2x2_8_RESOLUTION
  *
  *
  *	@return results of bus communication function
@@ -498,6 +506,12 @@ BMA2x2_RETURN_FUNCTION_TYPE bma2x2_read_accel_y(s16 *accel_y_s16)
 			*accel_y_s16 = *accel_y_s16 >>
 			BMA2x2_SHIFT_TWO_BITS;
 		break;
+		/* This case used for the resolution bit 8*/
+		case BMA2x2_8_RESOLUTION:
+			com_rslt = bma2x2_read_accel_eight_resolution_y
+			((s8 *)&data_u8[BMA2x2_SENSOR_DATA_ACCEL_MSB]);
+			*accel_y_s16 = (s16)((s8)data_u8[BMA2x2_SENSOR_DATA_ACCEL_MSB]);
+		break;
 		default:
 		break;
 		}
@@ -553,6 +567,7 @@ s8 *accel_y_s8)
  *              0          | BMA2x2_12_RESOLUTION
  *              1          | BMA2x2_10_RESOLUTION
  *              2          | BMA2x2_14_RESOLUTION
+ *              3          | BMA2x2_8_RESOLUTION
  *
  *
  *	@return results of bus communication function
@@ -620,6 +635,12 @@ BMA2x2_RETURN_FUNCTION_TYPE bma2x2_read_accel_z(s16 *accel_z_s16)
 			*accel_z_s16 = *accel_z_s16 >>
 			BMA2x2_SHIFT_TWO_BITS;
 		break;
+		/* This case used for the resolution bit 8*/
+		case BMA2x2_8_RESOLUTION:
+			com_rslt = bma2x2_read_accel_eight_resolution_z
+			((s8 *)&data_u8[BMA2x2_SENSOR_DATA_ACCEL_MSB]);
+			*accel_z_s16 = (s16)((s8)data_u8[BMA2x2_SENSOR_DATA_ACCEL_MSB]);
+		break;
 		default:
 		break;
 		}
@@ -674,6 +695,7 @@ s8 *accel_z_s8)
  *              0          | BMA2x2_12_RESOLUTION
  *              1          | BMA2x2_10_RESOLUTION
  *              2          | BMA2x2_14_RESOLUTION
+ *              3          | BMA2x2_8_RESOLUTION
  *
  *	@return results of bus communication function
  *	@retval 0 -> Success
@@ -699,6 +721,8 @@ struct bma2x2_accel_data *accel)
 	BMA2x2_INIT_VALUE, BMA2x2_INIT_VALUE,
 	BMA2x2_INIT_VALUE, BMA2x2_INIT_VALUE,
 	BMA2x2_INIT_VALUE, BMA2x2_INIT_VALUE};
+
+	struct bma2x2_accel_eight_resolution accel_8bit = {0};
 
 	if (p_bma2x2 == BMA2x2_NULL) {
 		/* Check the struct p_bma2x2 is empty */
@@ -793,6 +817,14 @@ struct bma2x2_accel_data *accel)
 			(data_u8[BMA2x2_SENSOR_DATA_XYZ_Z_LSB]
 			& BMA2x2_14_BIT_SHIFT));
 			accel->z = accel->z >> BMA2x2_SHIFT_TWO_BITS;
+		break;
+		/* This case used for the resolution bit 8*/
+		case BMA2x2_8_RESOLUTION:
+			com_rslt = bma2x2_read_accel_eight_resolution_xyz
+			(&accel_8bit);
+			accel->x = (s16)((s8)accel_8bit.x);
+			accel->y = (s16)((s8)accel_8bit.y);
+			accel->z = (s16)((s8)accel_8bit.z);
 		break;
 		default:
 		break;
@@ -8535,6 +8567,9 @@ static void unpack_accel_frame(union fifo_frame *accel_frame, u8 *data_index,
 		} else if (V_BMA2x2RESOLUTION_U8 == BMA2x2_10_RESOLUTION) {
 			accel_frame[*accel_index].x =
 					(accel_frame[*accel_index].x >> 6);
+		} else if (V_BMA2x2RESOLUTION_U8 == BMA2x2_8_RESOLUTION) {
+			accel_frame[*accel_index].x =
+					(accel_frame[*accel_index].x >> 8);
 		}
 		/* Accel index is updated*/
 		(*accel_index)++;
@@ -8556,6 +8591,9 @@ static void unpack_accel_frame(union fifo_frame *accel_frame, u8 *data_index,
 		} else if (V_BMA2x2RESOLUTION_U8 == BMA2x2_10_RESOLUTION) {
 			accel_frame[*accel_index].y =
 					(accel_frame[*accel_index].y >> 6);
+		} else if (V_BMA2x2RESOLUTION_U8 == BMA2x2_8_RESOLUTION) {
+			accel_frame[*accel_index].y =
+					(accel_frame[*accel_index].y >> 8);
 		}
 		/* Accel index is updated*/
 		(*accel_index)++;
@@ -8577,6 +8615,9 @@ static void unpack_accel_frame(union fifo_frame *accel_frame, u8 *data_index,
 		} else if (V_BMA2x2RESOLUTION_U8 == BMA2x2_10_RESOLUTION) {
 			accel_frame[*accel_index].z =
 					(accel_frame[*accel_index].z >> 6);
+		} else if (V_BMA2x2RESOLUTION_U8 == BMA2x2_8_RESOLUTION) {
+			accel_frame[*accel_index].z =
+					(accel_frame[*accel_index].z >> 8);
 		}
 		/* Accel index is updated*/
 		(*accel_index)++;
@@ -8628,6 +8669,10 @@ static void unpack_accel_xyz(union fifo_frame *accel_frame, u8 *data_index,
 		accel_frame->accel_data.x = (accel_frame->accel_data.x >> 6);
 		accel_frame->accel_data.y = (accel_frame->accel_data.y >> 6);
 		accel_frame->accel_data.z = (accel_frame->accel_data.z >> 6);
+	} else if (V_BMA2x2RESOLUTION_U8 == BMA2x2_8_RESOLUTION) {
+		accel_frame->accel_data.x = (accel_frame->accel_data.x >> 8);
+		accel_frame->accel_data.y = (accel_frame->accel_data.y >> 8);
+		accel_frame->accel_data.z = (accel_frame->accel_data.z >> 8);
 	}
 }
 
@@ -8692,6 +8737,8 @@ struct bma2x2_accel_data_temp *accel)
 	BMA2x2_INIT_VALUE, BMA2x2_INIT_VALUE,
 	BMA2x2_INIT_VALUE, BMA2x2_INIT_VALUE,
 	BMA2x2_INIT_VALUE};
+	struct bma2x2_accel_eight_resolution_temp accel_8bit = {0};
+
 	if (p_bma2x2 == BMA2x2_NULL) {
 		/* Check the struct p_bma2x2 is empty */
 		return E_BMA2x2_NULL_PTR;
@@ -8792,6 +8839,14 @@ struct bma2x2_accel_data_temp *accel)
 			/* read temp data_u8*/
 			/*Accessing the sixth element of array*/
 			accel->temp = (s8)data_u8[BMA2x2_SENSOR_DATA_TEMP];
+		break;
+		case BMA2x2_8_RESOLUTION:
+			com_rslt = bma2x2_read_accel_eight_resolution_xyzt
+			(&accel_8bit);
+			accel->x = (s16)((s8)accel_8bit.x);
+			accel->y = (s16)((s8)accel_8bit.y);
+			accel->z = (s16)((s8)accel_8bit.z);
+			accel->temp = accel_8bit.temp;
 		break;
 		default:
 		break;

@@ -3938,7 +3938,7 @@ u8 intr_source_u8);
  *       intr_source_u8         |    result
  *       ------------------------ | ------------------
  *              0x01              | OPEN_DRAIN
- *              0x00              | PUSS_PULL
+ *              0x00              | PUSH_PULL
  *
  *
  *
@@ -3966,7 +3966,7 @@ u8 *intr_output_type_u8);
  *       intr_source_u8         |    result
  *       ------------------------ | ------------------
  *              0x01              | OPEN_DRAIN
- *              0x00              | PUSS_PULL
+ *              0x00              | PUSH_PULL
  *
  *
  *

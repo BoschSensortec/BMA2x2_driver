@@ -26,9 +26,9 @@
 
 Driver files     | Version 
 -----------------|---------
-bma2x2.c 	 |  2.0.7  
-bma2x2.h 	 |  2.0.7  
-bma2x2_support.c |  1.0.4  
+bma2x2.c 	 |  2.0.8  
+bma2x2.h 	 |  2.0.8  
+bma2x2_support.c |  2.0.8  
 
 ### Integration details<a name=integration></a>
 - Integrate bma2x2.h and bma2x2.c file in to your project.
@@ -55,5 +55,5 @@ bma2x2_support.c |  1.0.4
 - This accelerometer sensor driver supports SPI and I2C interfaces
 
 ### Copyright<a name=copy></a>
-- Copyright (C) 2015 - 2016 Bosch Sensortec GmbH
+- Copyright (C) 2020 Bosch Sensortec GmbH. All rights reserved.
 

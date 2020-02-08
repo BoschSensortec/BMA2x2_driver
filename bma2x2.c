@@ -59,7 +59,7 @@ u8 V_BMA2x2RESOLUTION_U8 = BMA2x2_14_RESOLUTION;
  */
 static void get_accel_len_to_parse(u8 *data_index, u8 *data_read_length,
 		u8 accel_frame_count, u8 fifo_data_select,
-		struct fifo_configuration *fifo_conf);
+		struct bma2x2_fifo_configuration *fifo_conf);
 
 /*!
  *  @brief This API is used to parse the accelerometer frame from the
@@ -82,7 +82,7 @@ static void get_accel_len_to_parse(u8 *data_index, u8 *data_read_length,
  */
 static void unpack_accel_frame(union fifo_frame *accel_frame, u8 *data_index,
 		u8 *accel_index, u8 fifo_data_select,
-		struct fifo_configuration *fifo_conf);
+		struct bma2x2_fifo_configuration *fifo_conf);
 
 /*!
  *  @brief This API is used to parse the accelerometer data and
@@ -96,7 +96,7 @@ static void unpack_accel_frame(union fifo_frame *accel_frame, u8 *data_index,
  *
  */
 static void unpack_accel_xyz(union fifo_frame *accel_frame, u8 *data_index,
-		struct fifo_configuration *fifo_conf);
+		struct bma2x2_fifo_configuration *fifo_conf);
 /*!
  * @brief
  *	This API reads the data from
@@ -8293,17 +8293,17 @@ u8 fifo_data_select_u8)
 /*!
  *  @brief This API reads the FIFO data from the register 0x3F
  *  and store the data in the user defined buffer mapped to the member
- *  of structure "fifo_configuration"
+ *  of structure "bma2x2_fifo_configuration"
  *
  *  @note Before calling this API user must map the following FIFO settings
- *  required to read the FIFO data to the structure "fifo_configuration"
+ *  required to read the FIFO data to the structure "bma2x2_fifo_configuration"
  *    - Data buffer to store the FIFO data is mapped to
  *      the structure member "fifo_data"
  *    - Number of bytes to be read from FIFO is mapped to
  *      the structure member "fifo_length"
  *
  *  @note The number of bytes to be read from the FIFO is specified in the
- *  member "fifo_length" of the structure "fifo_configuration"
+ *  member "fifo_length" of the structure "bma2x2_fifo_configuration"
  *
  *  @param[in,out] fifo_conf : Structure containing the FIFO configurations
  *  is passed as input and FIFO data of specified length is obtained as output
@@ -8315,7 +8315,7 @@ u8 fifo_data_select_u8)
  *
  */
 BMA2x2_RETURN_FUNCTION_TYPE bma2x2_read_fifo_data(
-				struct fifo_configuration *fifo_conf)
+				struct bma2x2_fifo_configuration *fifo_conf)
 {
 	u8 fifo_frame_count = 0;
 	u8 fifo_data_bytes = 0;
@@ -8386,7 +8386,7 @@ BMA2x2_RETURN_FUNCTION_TYPE bma2x2_read_fifo_data(
  *
  */
 BMA2x2_RETURN_FUNCTION_TYPE bma2x2_extract_accel(union fifo_frame *accel_frame,
-	u8 *accel_frame_count, struct fifo_configuration *fifo_conf)
+	u8 *accel_frame_count, struct bma2x2_fifo_configuration *fifo_conf)
 {
 	u8 data_index = 0;
 	u8 accel_index = 0;
@@ -8397,7 +8397,7 @@ BMA2x2_RETURN_FUNCTION_TYPE bma2x2_extract_accel(union fifo_frame *accel_frame,
 
 	if (p_bma2x2 == BMA2x2_NULL || fifo_conf->fifo_data == BMA2x2_NULL) {
 		/* Check the struct p_bma2x2 is empty and FIFO data buffer
-		not being mapped to  fifo_configuration structure */
+		not being mapped to fifo_configuration structure */
 		com_rslt = E_BMA2x2_NULL_PTR;
 	} else {
 		/* FIFO data enable value is stored in fifo_data_select*/
@@ -8427,7 +8427,7 @@ BMA2x2_RETURN_FUNCTION_TYPE bma2x2_extract_accel(union fifo_frame *accel_frame,
  */
 static void get_accel_len_to_parse(u8 *data_index, u8 *data_read_length,
 	u8 accel_frame_count, u8 fifo_data_select,
-	struct fifo_configuration *fifo_conf)
+	struct bma2x2_fifo_configuration *fifo_conf)
 {
 	/*Current data index is set to accel_byte_start_index*/
 	*data_index = fifo_conf->accel_byte_start_index;
@@ -8462,7 +8462,7 @@ static void get_accel_len_to_parse(u8 *data_index, u8 *data_read_length,
  */
 static void unpack_accel_frame(union fifo_frame *accel_frame, u8 *data_index,
 	u8 *accel_index, u8 fifo_data_select,
-	struct fifo_configuration *fifo_conf)
+	struct bma2x2_fifo_configuration *fifo_conf)
 {
 	u16 data_lsb = 0;
 	u16 data_msb = 0;
@@ -8552,7 +8552,7 @@ static void unpack_accel_frame(union fifo_frame *accel_frame, u8 *data_index,
  *
  */
 static void unpack_accel_xyz(union fifo_frame *accel_frame, u8 *data_index,
-	struct fifo_configuration *fifo_conf)
+	struct bma2x2_fifo_configuration *fifo_conf)
 {
 	u16 data_lsb = 0;
 	u16 data_msb = 0;

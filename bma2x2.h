@@ -2891,13 +2891,13 @@ BMA2x2_RETURN_FUNCTION_TYPE bma2x2_update_image(void);
  *              2          | BMA2x2_HIGH_G_Y_INTR
  *              3          | BMA2x2_HIGH_G_Z_INTR
  *              4          | BMA2x2_DATA_ENABLE
- *              5          | SLOPE_X_INTR
- *              6          | SLOPE_Y_INTR
- *              7          | SLOPE_Z_INTR
- *              8          | SINGLE_TAP_INTR
- *              9          | SINGLE_TAP_INTR
- *              10         | ORIENT_INT
- *              11         | FLAT_INT
+ *              5          | BMA2x2_SLOPE_X_INTR
+ *              6          | BMA2x2_SLOPE_Y_INTR
+ *              7          | BMA2x2_SLOPE_Z_INTR
+ *              8          | BMA2x2_SINGLE_TAP_INTR
+ *              9          | BMA2x2_SINGLE_TAP_INTR
+ *              10         | BMA2x2_ORIENT_INT
+ *              11         | BMA2x2_FLAT_INT
  *
  *  @param value_u8 : The value of interrupts enable
  *        value_u8       |   result
@@ -3059,10 +3059,10 @@ BMA2x2_RETURN_FUNCTION_TYPE bma2x2_set_intr_fifo_wm(u8 fifo_wm_u8);
  *  @param  channel_u8 : The value of slow/no motion select
  *        channel_u8     |   result
  *       ----------------- | ------------------
- *              0          | BMA2x2_ACCEL_SLOW_NO_MOTION_ENABLE_X
- *              1          | BMA2x2_ACCEL_SLOW_NO_MOTION_ENABLE_Y
- *              2          | BMA2x2_ACCEL_SLOW_NO_MOTION_ENABLE_Z
- *              3          | BMA2x2_ACCEL_SLOW_NO_MOTION_ENABLE_SEL
+ *              0          | BMA2x2_SLOW_NO_MOTION_ENABLE_X
+ *              1          | BMA2x2_SLOW_NO_MOTION_ENABLE_Y
+ *              2          | BMA2x2_SLOW_NO_MOTION_ENABLE_Z
+ *              3          | BMA2x2_SLOW_NO_MOTION_ENABLE_SEL
  *
  *	@param slow_no_motion_u8 : The value of slow no motion interrupt
  *      enable
@@ -3238,8 +3238,8 @@ u8 intr_high_g_u8);
  * @param channel_u8: the value of slope channel select
  *        channel_u8     |   result
  *       ----------------- | ------------------
- *              0          | BMA2x2_ACCEL_INTR1_SLOPE
- *              1          | BMA2x2_ACCEL_INTR2_SLOPE
+ *              0          | BMA2x2_INTR1_SLOPE
+ *              1          | BMA2x2_INTR2_SLOPE
  *
  * @param intr_slope_u8 : The slope value enable value
  *        intr_slope_u8         |   result
@@ -3268,8 +3268,8 @@ u8 *intr_slope_u8);
  * @param channel_u8: the value of slope channel select
  *        channel_u8     |   result
  *       ----------------- | ------------------
- *              0          | BMA2x2_ACCEL_INTR1_SLOPE
- *              1          | BMA2x2_ACCEL_INTR2_SLOPE
+ *              0          | BMA2x2_INTR1_SLOPE
+ *              1          | BMA2x2_INTR2_SLOPE
  *
  * @param intr_slope_u8 : The slope value enable value
  *        intr_slope_u8         |   result
@@ -3822,12 +3822,12 @@ BMA2x2_RETURN_FUNCTION_TYPE bma2x2_set_intr2_fifo_full(u8 intr2_fifo_full_u8);
  *  @param channel_u8 : The value of source select
  *       channel_u8     |    result
  *       -----------------| ------------------
- *               0        | BMA2x2_ACCEL_SOURCE_LOW_G
- *               1        | BMA2x2_ACCEL_SOURCE_HIGH_G
- *               2        | BMA2x2_ACCEL_SOURCE_SLOPE
- *               3        | BMA2x2_ACCEL_SOURCE_SLOW_NO_MOTION
- *               4        | BMA2x2_ACCEL_SOURCE_TAP
- *               5        | BMA2x2_ACCEL_SOURCE_DATA
+ *               0        | BMA2x2_SOURCE_LOW_G
+ *               1        | BMA2x2_SOURCE_HIGH_G
+ *               2        | BMA2x2_SOURCE_SLOPE
+ *               3        | BMA2x2_SOURCE_SLOW_NO_MOTION
+ *               4        | BMA2x2_SOURCE_TAP
+ *               5        | BMA2x2_SOURCE_DATA
  *
  *	@param intr_source_u8: The source status enable value
  *       intr_source_u8         |    result
@@ -3853,12 +3853,12 @@ u8 *intr_source_u8);
  *  @param channel_u8 : The value of source select
  *       channel_u8     |    result
  *       -----------------| ------------------
- *               0        | BMA2x2_ACCEL_SOURCE_LOW_G
- *               1        | BMA2x2_ACCEL_SOURCE_HIGH_G
- *               2        | BMA2x2_ACCEL_SOURCE_SLOPE
- *               3        | BMA2x2_ACCEL_SOURCE_SLOW_NO_MOTION
- *               4        | BMA2x2_ACCEL_SOURCE_TAP
- *               5        | BMA2x2_ACCEL_SOURCE_DATA
+ *               0        | BMA2x2_SOURCE_LOW_G
+ *               1        | BMA2x2_SOURCE_HIGH_G
+ *               2        | BMA2x2_SOURCE_SLOPE
+ *               3        | BMA2x2_SOURCE_SLOW_NO_MOTION
+ *               4        | BMA2x2_SOURCE_TAP
+ *               5        | BMA2x2_SOURCE_DATA
  *
  *	@param intr_source_u8: The source status enable value
  *       intr_source_u8         |    result
@@ -3885,8 +3885,8 @@ u8 intr_source_u8);
  *  @param channel_u8: The value of output type select
  *       channel_u8     |    result
  *       -----------------| ------------------
- *               0        | BMA2x2_ACCEL_INTR1_OUTPUT
- *               1        | BMA2x2_ACCEL_INTR2_OUTPUT
+ *               0        | BMA2x2_INTR1_OUTPUT
+ *               1        | BMA2x2_INTR2_OUTPUT
  *
  *	@param intr_output_type_u8: The value of output type select
  *       intr_source_u8         |    result
@@ -3913,8 +3913,8 @@ u8 *intr_output_type_u8);
  *  @param channel_u8: The value of output type select
  *         channel_u8   |    result
  *       -----------------| ------------------
- *               0        | BMA2x2_ACCEL_INTR1_OUTPUT
- *               1        | BMA2x2_ACCEL_INTR2_OUTPUT
+ *               0        | BMA2x2_INTR1_OUTPUT
+ *               1        | BMA2x2_INTR2_OUTPUT
  *
  *	@param intr_output_type_u8: The value of output type select
  *       intr_source_u8         |    result
@@ -3941,8 +3941,8 @@ u8 intr_output_type_u8);
  *  @param channel_u8: The value of Active Level select
  *       channel_u8     |    result
  *       -----------------| ------------------
- *               0        | BMA2x2_ACCEL_INTR1_LEVEL
- *               1        | BMA2x2_ACCEL_INTR2_LEVEL
+ *               0        | BMA2x2_INTR1_LEVEL
+ *               1        | BMA2x2_INTR2_LEVEL
  *
  *  @param intr_level_u8: The Active Level status enable value
  *       intr_level_u8          |    result
@@ -3968,8 +3968,8 @@ u8 *intr_level_u8);
  *  @param channel_u8: The value of Active Level select
  *       channel_u8     |    result
  *       -----------------| ------------------
- *               0        | BMA2x2_ACCEL_INTR1_LEVEL
- *               1        | BMA2x2_ACCEL_INTR2_LEVEL
+ *               0        | BMA2x2_INTR1_LEVEL
+ *               1        | BMA2x2_INTR2_LEVEL
  *
  *  @param intr_level_u8: The Active Level status enable value
  *       intr_level_u8          |    result
@@ -4092,23 +4092,23 @@ BMA2x2_RETURN_FUNCTION_TYPE bma2x2_set_latch_intr(u8 latch_intr_u8);
  *  @param channel_u8: The value of duration select
  *     channel_u8   | result
  *   -----------------| ------------------
- *               0    | BMA2x2_ACCEL_LOW_DURN
- *               1    | BMA2x2_ACCEL_HIGH_DURN
- *               2    | BMA2x2_ACCEL_SLOPE_DURN
- *               3    | BMA2x2_ACCEL_SLOW_NO_MOTION_DURN
+ *               0    | BMA2x2_LOW_DURN
+ *               1    | BMA2x2_HIGH_DURN
+ *               2    | BMA2x2_SLOPE_DURN
+ *               3    | BMA2x2_SLOW_NO_MOTION_DURN
  *
  *	@param durn_u8: The value of duration
  *
  *	@note :
  *     Duration           |    result
  * -----------------------| ------------------
- * BMA2x2_ACCEL_LOW_DURN  | Low-g interrupt trigger
+ * BMA2x2_LOW_DURN        | Low-g interrupt trigger
  *         -              | delay according to([durn_u8 +1]*2)ms
  *         -              | range from 2ms to 512ms. default is 20ms
- * BMA2x2_ACCEL_HIGH_DURN | high-g interrupt trigger
+ * BMA2x2_HIGH_DURN       | high-g interrupt trigger
  *         -              | delay according to([durn_u8 +1]*2)ms
  *         -              | range from 2ms to 512ms. default is 32ms
- * BMA2x2_ACCEL_SLOPE_DURN| slope interrupt trigger
+ * BMA2x2_SLOPE_DURN      | slope interrupt trigger
  *         -              | if[durn_u8<1:0>+1] consecutive data points
  *         -              | are above the slope interrupt threshold
  * SLO_NO_MOT_DURN        | Refer data sheet for clear information
@@ -4177,10 +4177,10 @@ u8 durn_u8);
  *  @param channel_u8: The value of threshold selection
  *     channel_u8   | result
  *   -----------------| ------------------
- *               0    | BMA2x2_ACCEL_LOW_THRES
- *               1    | BMA2x2_ACCEL_HIGH_THRES
- *               2    | BMA2x2_ACCEL_SLOPE_THRES
- *               3    | BMA2x2_ACCEL_SLOW_NO_MOTION_THRES
+ *               0    | BMA2x2_LOW_THRES
+ *               1    | BMA2x2_HIGH_THRES
+ *               2    | BMA2x2_SLOPE_THRES
+ *               3    | BMA2x2_SLOW_NO_MOTION_THRES
  *
  *  @param thres_u8: The threshold value of selected interrupts
  *
@@ -4239,10 +4239,10 @@ u8 *thres_u8);
  *  @param channel_u8: The value of threshold selection
  *     channel_u8   | result
  *   -----------------| ------------------
- *               0    | BMA2x2_ACCEL_LOW_THRES
- *               1    | BMA2x2_ACCEL_HIGH_THRES
- *               2    | BMA2x2_ACCEL_SLOPE_THRES
- *               3    | BMA2x2_ACCEL_SLOW_NO_MOTION_THRES
+ *               0    | BMA2x2_LOW_THRES
+ *               1    | BMA2x2_HIGH_THRES
+ *               2    | BMA2x2_SLOPE_THRES
+ *               3    | BMA2x2_SLOW_NO_MOTION_THRES
  *
  *  @param thres_u8: The threshold value of selected interrupts
  *
@@ -5268,7 +5268,7 @@ BMA2x2_RETURN_FUNCTION_TYPE bma2x2_set_spi3(u8 spi3_u8);
  *
  *  @param i2c_wdt_u8: watch dog timer period
  *	and I2C interface mode is selected
- *     BMA2x2_ACCEL_I2C_SELECT|    result
+ *     BMA2x2_I2C_SELECT      |    result
  *  ------------------------- |------------------
  *     0x00                   | Disable the watchdog at SDI pin
  *     0x01                   | Enable watchdog
@@ -5296,12 +5296,12 @@ u8 *i2c_wdt_u8);
  *  @param channel_u8: The i2c option selection
  *     channel_u8           |    result
  *  ------------------------- |------------------
- *        0                   |   BMA2x2_ACCEL_I2C_SELECT
- *        1                   |   BMA2x2_ACCEL_I2C_ENABLE
+ *        0                   |   BMA2x2_I2C_SELECT
+ *        1                   |   BMA2x2_I2C_ENABLE
  *
  *  @param i2c_wdt_u8: watch dog timer period
  *	and I2C interface mode is selected
- *     BMA2x2_ACCEL_I2C_SELECT|    result
+ *     BMA2x2_I2C_SELECT      |    result
  *  ------------------------- |------------------
  *     0x00                   | Disable the watchdog at SDI pin
  *     0x01                   | Enable watchdog

@@ -1694,7 +1694,7 @@ BMA2x2_INTR_SOURCE_ADDR
 /***************************************************/
 #define OPEN_DRAIN	(0x01)
 /**< It refers open drain selection*/
-#define PUSS_PULL	(0x01)
+#define PUSH_PULL	(0x00)
 /**< It refers push pull selection*/
 
 /****************************************************/
@@ -3892,7 +3892,7 @@ u8 intr_source_u8);
  *       intr_source_u8         |    result
  *       ------------------------ | ------------------
  *              0x01              | OPEN_DRAIN
- *              0x00              | PUSS_PULL
+ *              0x00              | PUSH_PULL
  *
  *
  *
@@ -3920,7 +3920,7 @@ u8 *intr_output_type_u8);
  *       intr_source_u8         |    result
  *       ------------------------ | ------------------
  *              0x01              | OPEN_DRAIN
- *              0x00              | PUSS_PULL
+ *              0x00              | PUSH_PULL
  *
  *
  *

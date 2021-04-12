@@ -1,3 +1,5 @@
+# This project is now archived. Refer to https://github.com/BoschSensortec/BMA2-Sensor-API for new projects.
+
 ## Table of Contents
 - [Introduction](#intro)
 - [Version](#ver)

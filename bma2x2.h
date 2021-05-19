@@ -530,6 +530,7 @@ burst_read(device_addr, register_addr, register_data, rd_len)
 #define BMA2x2_12_RESOLUTION                    (0)
 #define BMA2x2_10_RESOLUTION                    (1)
 #define BMA2x2_14_RESOLUTION                    (2)
+#define BMA2x2_8_RESOLUTION                     (3)
 
 /**************************************************************/
 /**\name	ACCEL DELAY DEFINITION   */
